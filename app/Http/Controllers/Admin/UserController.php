@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -77,6 +78,10 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
+        // if (Gate::denies('is-admin')) {
+        //     return back()->with('message', 'Você não é um administrador.');
+        // }
+
         if (!$user = User::find($id)) {
             return redirect()->route('users.index')->with('message', 'Usuário não encontrado');
         }
