@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         User::create($request->validated());
 
-        return redirect
+        return redirect()
             ->route('admin.users.index')
             ->with('success', 'Usuário criado com sucesso');
     }
@@ -61,15 +61,15 @@ class UserController extends Controller
             'email'
         ]));
 
-        return redirect
+        return redirect()
             ->route('admin.users.index')
             ->with('success', 'Usuário editado com sucesso');
     }
 
     public function show(string $id)
     {
-        if (!$id = User::find($id)) {
-            return redirect()->route('users.index')->with('message', 'Usuário não encontrado');
+        if (!$user = User::find($id)) {
+            return redirect()->route('users.index')->with('message', 'Usuário não encontrado');
         }
 
         return view('admin.users.show', compact('user'));
@@ -77,18 +77,16 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
-        if (!User::find($id)) {
-            return redirect()->route('users.index')->with('message', 'Usuário não encontrado');
+        if (!$user = User::find($id)) {
+            return redirect()->route('users.index')->with('message', 'Usuário não encontrado');
         }
-
         if (Auth::user()->id === $user->id) {
-            return back()->with('message', 'Você não pode excluir o seu perfil');
+            return back()->with('message', 'Você não pode deletar o seu próprio perfil');
         }
-
         $user->delete();
 
-        return redirect
-            ->route('admin.users.index')
-            ->with('success', 'Usuário excluído com sucesso');
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Usuário deletado com sucesso');
     }
 }
