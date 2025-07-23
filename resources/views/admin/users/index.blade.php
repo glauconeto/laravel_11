@@ -32,8 +32,8 @@
                         <td class="px-6 py-4">{{ $user->name }}</td>
                         <td class="px-6 py-4">{{ $user->email }}</td>
                         <td class="px-6 py-4">
-                            <a href="{{ route('users.edit', $user->id) }}">Edit</a>
-                            <a href="{{ route('users.show', $user->id) }}">Detalhes</a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="hover:bg-yellow-600">Editar</a>
+                            <a href="{{ route('users.show', $user->id) }}" class="hover:bg-lime-500">Detalhes</a>
                         </td>
                     </tr>
                 @empty
